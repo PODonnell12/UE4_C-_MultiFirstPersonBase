@@ -1,10 +1,13 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "MultiFirstPersonCharacter.h"
+#include "Animation/AnimBlueprint.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -45,6 +48,45 @@ AMultiFirstPersonCharacter::AMultiFirstPersonCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	
+	//if (MeshAnim != NULL)
+	//{
+	//	Mesh->SetAnimInstanceClass(MeshAnim);
+	//	Mesh->InitializeAnimScriptInstance(true);
+	//}
+}
+
+void AMultiFirstPersonCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	
+}
+
+void AMultiFirstPersonCharacter::ToggleFirstThirdPerson()
+{
+	bool bIsFirstPerson = (GetMesh()->SkeletalMesh == FPMeshAsset);
+
+	if (bIsFirstPerson)
+	{
+		GetMesh()->SetSkeletalMesh(TPMeshAsset);
+		GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		GetMesh()->SetAnimInstanceClass(TPAnimBP->GeneratedClass);
+
+		FRotator meshRotation;
+		meshRotation.SetComponentForAxis(EAxis::Z, -90.0f);
+		GetMesh()->SetRelativeRotation(meshRotation);
+	}
+	else
+	{
+		GetMesh()->SetSkeletalMesh(FPMeshAsset);
+		GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		GetMesh()->SetAnimInstanceClass(FPAnimBP->GeneratedClass);
+
+		FRotator meshRotation;
+		meshRotation.SetComponentForAxis(EAxis::Z, 0.0f);
+		GetMesh()->SetRelativeRotation(meshRotation);
+	}
 }
 
 void AMultiFirstPersonCharacter::TurnAtRate(float Rate)

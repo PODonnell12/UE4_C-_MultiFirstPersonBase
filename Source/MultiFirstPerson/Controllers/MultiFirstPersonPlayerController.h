@@ -22,6 +22,7 @@ private:
 	
 	void Jump();
 	void StopJumping();
+	void ToggleCamera();
 
 	void MoveForward(float fAmount);
 	void MoveRight(float fAmount);

@@ -14,6 +14,7 @@ void AMultiFirstPersonPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("Jump", IE_Pressed, this, &AMultiFirstPersonPlayerController::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &AMultiFirstPersonPlayerController::StopJumping);
+	InputComponent->BindAction("ToggleCamera", IE_Released, this, &AMultiFirstPersonPlayerController::ToggleCamera);
 
 	InputComponent->BindAxis("MoveForward", this, &AMultiFirstPersonPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMultiFirstPersonPlayerController::MoveRight);
@@ -25,6 +26,7 @@ void AMultiFirstPersonPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("TurnRate", this, &AMultiFirstPersonPlayerController::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &AMultiFirstPersonPlayerController::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &AMultiFirstPersonPlayerController::LookUpAtRate);
+
 
 #if ENABLE_TOUCH_DEVICES
 	// handle touch devices
@@ -64,6 +66,14 @@ void AMultiFirstPersonPlayerController::StopJumping()
 	if (AMultiFirstPersonCharacter* pCharacter = GetMultiFirstPersonCharacter())
 	{
 		pCharacter->StopJumping();
+	}
+}
+
+void AMultiFirstPersonPlayerController::ToggleCamera()
+{
+	if (AMultiFirstPersonCharacter* pCharacter = GetMultiFirstPersonCharacter())
+	{
+		pCharacter->ToggleFirstThirdPerson();
 	}
 }
 

@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "MultiFirstPersonCharacter.generated.h"
 
+class UAnimBlueprint;
+class USkeletalMesh;
+
 UCLASS(config=Game)
 class AMultiFirstPersonCharacter : public ACharacter
 {
@@ -21,6 +24,18 @@ class AMultiFirstPersonCharacter : public ACharacter
 
 public:
 	AMultiFirstPersonCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Meshes")
+	USkeletalMesh* FPMeshAsset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Meshes")
+	USkeletalMesh* TPMeshAsset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Meshes")
+	UAnimBlueprint* FPAnimBP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Meshes")
+	UAnimBlueprint* TPAnimBP;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -47,6 +62,12 @@ public:
 
 	/** Called for side to side input */
 	void MoveRight(float Value);
+
+	void ToggleFirstThirdPerson();
+
+private:
+
+	virtual void BeginPlay() override;
 
 protected:
 
