@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "MultiFirstPersonCore.h"
 #include "GameFramework/GameModeBase.h"
 #include "MultiFirstPersonGameMode.generated.h"
 

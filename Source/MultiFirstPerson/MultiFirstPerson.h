@@ -2,4 +2,4 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "MultiFirstPersonCore.h"

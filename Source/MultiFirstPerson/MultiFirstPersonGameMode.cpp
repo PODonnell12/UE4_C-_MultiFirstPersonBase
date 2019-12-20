@@ -1,6 +1,8 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "MultiFirstPersonGameMode.h"
+
+#include "Controllers/MultiFirstPersonPlayerController.h"
 #include "MultiFirstPersonCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -12,4 +14,6 @@ AMultiFirstPersonGameMode::AMultiFirstPersonGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	PlayerControllerClass = AMultiFirstPersonPlayerController::StaticClass();
 }
